@@ -1,0 +1,41 @@
+version: '3'
+services:
+  airflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./plugins:/opt/airflow/plugins
+      - ./requirements.txt:/opt/airflow/requirements.txt
+      - ./airflow.cfg:/opt/airflow/airflow.cfg
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://<db-username>:<db-password>@<db-host>:<db-port>/<db-name>
+      - AIRFLOW__WEBSERVER__RBAC=true
+    depends_on:
+      - postgres
+    networks:
+      - airflow-network
+
+  postgres:
+    image: postgres:13
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=<db-username>
+      - POSTGRES_PASSWORD=<db-password>
+      - POSTGRES_DB=<db-name>
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - airflow-network
+
+networks:
+  airflow-network:
+
+volumes:
+  postgres-data:
