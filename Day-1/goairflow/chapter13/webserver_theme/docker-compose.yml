@@ -1,16 +1,18 @@
-version: "3.7"
+version: '3.7'
+
 # ====================================== AIRFLOW ENVIRONMENT VARIABLES =======================================
 x-environment: &airflow_environment
   - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+  - AIRFLOW__CORE__FERNET_KEY=YlCImzjge_TeZc7jPJ7Jz2pgOtb4yTssA1pVyqIADWg=
   - AIRFLOW__CORE__LOAD_DEFAULT_CONNECTIONS=False
   - AIRFLOW__CORE__LOAD_EXAMPLES=False
+  - AIRFLOW__LOGGING__LOGGING_LEVEL=DEBUG
   - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql://airflow:airflow@postgres:5432/airflow
-  - AIRFLOW__CORE__STORE_DAG_CODE=True
-  - AIRFLOW__CORE__STORE_SERIALIZED_DAGS=True
   - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
-  - AIRFLOW__WEBSERVER__RBAC=False
+
 x-airflow-image: &airflow_image apache/airflow:2.0.0-python3.8
 # ====================================== /AIRFLOW ENVIRONMENT VARIABLES ======================================
+
 services:
   postgres:
     image: postgres:12-alpine
@@ -20,24 +22,28 @@ services:
       - POSTGRES_DB=airflow
     ports:
       - "5432:5432"
-  init:
+
+  initdb_adduser:
     image: *airflow_image
     depends_on:
       - postgres
     environment: *airflow_environment
     entrypoint: /bin/bash
-    command: -c 'airflow db upgrade && sleep 5 && airflow users create --username admin --password admin --firstname Anonymous --lastname Admin --role Admin --email admin@example.org'
+    command: -c 'airflow db init && airflow users create --username admin --password admin --firstname Anonymous --lastname Admin --role Admin --email admin@example.org'
+
   webserver:
     image: *airflow_image
     restart: always
     depends_on:
       - postgres
-    ports:
-      - "8080:8080"
     volumes:
       - logs:/opt/airflow/logs
+      - ./webserver_config.py:/opt/airflow/webserver_config.py
+    ports:
+      - "8080:8080"
     environment: *airflow_environment
     command: webserver
+
   scheduler:
     image: *airflow_image
     restart: always

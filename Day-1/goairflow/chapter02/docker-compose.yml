@@ -1,4 +1,5 @@
-version: "3.7"
+version: '3.7'
+
 # ====================================== AIRFLOW ENVIRONMENT VARIABLES =======================================
 x-environment: &airflow_environment
   - AIRFLOW__CORE__EXECUTOR=LocalExecutor
@@ -8,7 +9,7 @@ x-environment: &airflow_environment
   - AIRFLOW__CORE__STORE_DAG_CODE=True
   - AIRFLOW__CORE__STORE_SERIALIZED_DAGS=True
   - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
-  - AIRFLOW__WEBSERVER__RBAC=False
+
 x-airflow-image: &airflow_image apache/airflow:2.0.0-python3.8
 # ====================================== /AIRFLOW ENVIRONMENT VARIABLES ======================================
 services:
@@ -20,13 +21,15 @@ services:
       - POSTGRES_DB=airflow
     ports:
       - "5432:5432"
+
   init:
     image: *airflow_image
     depends_on:
       - postgres
     environment: *airflow_environment
     entrypoint: /bin/bash
-    command: -c 'airflow db upgrade && sleep 5 && airflow users create --username admin --password admin --firstname Anonymous --lastname Admin --role Admin --email admin@example.org'
+    command: -c 'airflow db init && airflow users create --username admin --password admin --firstname Anonymous --lastname Admin --role Admin --email admin@example.org'
+
   webserver:
     image: *airflow_image
     restart: always
@@ -38,14 +41,15 @@ services:
       - logs:/opt/airflow/logs
     environment: *airflow_environment
     command: webserver
+
   scheduler:
     image: *airflow_image
     restart: always
     depends_on:
       - postgres
     volumes:
-      - ./dags:/opt/airflow/dags
       - logs:/opt/airflow/logs
+      - ./dags:/opt/airflow/dags
     environment: *airflow_environment
     command: scheduler
 
