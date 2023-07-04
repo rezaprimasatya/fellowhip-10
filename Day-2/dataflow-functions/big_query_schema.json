@@ -1,0 +1,24 @@
+{
+    "Big Query Schema": [
+        {
+            "name": "fullname",
+            "type": "text"
+        },
+        {
+            "name": "phone",
+            "type": "integer"
+        },
+        {
+            "name": "hobbies",
+            "type": "text"
+        },
+        {
+            "name": "games",
+            "type": "text"
+        },
+        {
+            "name": "birthdate",
+            "type": "date"
+        }
+    ]
+}

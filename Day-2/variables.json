@@ -1,0 +1,9 @@
+{
+    "PROJECT_ID": "fellowship9",
+    "GCS_TEMP_LOCATION": "gs://fellowship_bucket",
+    "BUCKET_NAME": "fellowship_bucket",
+    "ALL_KEYWORDS_BQ_OUTPUT_TABLE": "dataset_id.ALL_KEYWORDS_BQ_OUTPUT_TABLE",
+    "GCS_STG_LOCATION": "gs://fellowship_staging",
+    "MOST_SEARCHED_KEYWORDS_BQ_OUTPUT_TABLE": "dataset_id.MOST_SEARCHED_KEYWORDS_BQ_OUTPUT_TABLE",
+    "EVENTS_BQ_TABLE": "dataset_id.EVENTS_BQ_TABLE"
+  }
