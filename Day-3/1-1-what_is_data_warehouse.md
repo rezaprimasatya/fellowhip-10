@@ -328,7 +328,7 @@ Users can then use reporting and analysis tools to query the data warehouse and 
 
     ```
 
-### Type of Keys
+# Type of Keys
 
 - Primary Key:
     - Details: A primary key is a unique identifier for each record in a table. It ensures data integrity by enforcing uniqueness and providing a means to identify individual records.
@@ -487,7 +487,7 @@ FROM Customers
 WHERE CustomerCode = 'CUST001';
 ```
 
-### Architectural design:
+# Architectural design:
 Architectural design for a data warehouse involves considering factors such as data modeling, schema design, partitioning, and clustering.
 
 - Data Modeling:
@@ -622,4 +622,102 @@ CREATE TABLE Customers (
   ...
 )
 CLUSTER BY CustomerID;
+```
+
+# Types of data models and dimensions:
+
+Data models in a data warehouse include dimensional models (such as star schema and snowflake schema) and normalized models.
+
+- Dimensional Models:
+  - Details: Dimensional models are commonly used in data warehousing and organize data into dimensions and facts. Dimensions represent the business context or categories by which data is analyzed, while facts contain the measurable data.
+  - Use Case: Dimensional models are suitable for analytical reporting and ad-hoc querying, providing a simplified and intuitive structure for data analysis.
+
+                  +------------------+
+                  |   Fact Table     |
+                  +-------+----------+
+                          |
+                          |
+           +--------------+-------------+
+           |            Dimension       |
+           |                            |
+           |  +------+     +----------+ |
+           |  | Dim1 |     | Dim2     | |
+           |  +------+     +----------+ |
+           |                            |
+           +----------------------------+
+
+Technique: Star schema and snowflake schema are commonly used dimensional modeling techniques.
+```sh
+CREATE TABLE FactTable (
+  FactID INT PRIMARY KEY,
+  Dim1ID INT,
+  Dim2ID INT,
+  Value INT,
+  FOREIGN KEY (Dim1ID) REFERENCES Dim1(Dim1ID),
+  FOREIGN KEY (Dim2ID) REFERENCES Dim2(Dim2ID)
+);
+```
+```sh
+CREATE TABLE Dim1 (
+  Dim1ID INT PRIMARY KEY,
+  Dim1Name VARCHAR(50)
+);
+```
+```sh
+CREATE TABLE Dim2 (
+  Dim2ID INT PRIMARY KEY,
+  Dim2Name VARCHAR(50)
+);
+```
+- Normalized Models:
+  - Details: Normalized models organize data into multiple related tables to minimize data redundancy and ensure data integrity. Data is stored at the most granular level.
+  - Use Case: Normalized models are suitable for transactional systems where data integrity is critical, and data updates, insertions, and deletions are frequent.
+  - Technique: Third Normal Form (3NF) is a commonly used normalization technique in relational databases.
+```sh
+CREATE TABLE Customers (
+  CustomerID INT PRIMARY KEY,
+  CustomerName VARCHAR(50),
+  Email VARCHAR(50),
+  ...
+);
+```
+```sh
+CREATE TABLE Orders (
+  OrderID INT PRIMARY KEY,
+  CustomerID INT,
+  OrderDate DATE,
+  ...
+  FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+```
+```sh
+CREATE TABLE OrderItems (
+  OrderItemID INT PRIMARY KEY,
+  OrderID INT,
+  ProductID INT,
+  Quantity INT,
+  ...
+  FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+  FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+```
+```sh
+CREATE TABLE Products (
+  ProductID INT PRIMARY KEY,
+  ProductName VARCHAR(50),
+  ...
+);
+```
+
+- Dimensions:
+  - Details: Dimensions represent the business context or categories by which data is analyzed in a data warehouse. They provide descriptive attributes for organizing and filtering data.
+  - Use Case: Dimensions enable users to slice and dice data based on various criteria, such as time, location, product, or customer.
+
+  - Technique: Hierarchical dimensions and conformed dimensions are commonly used techniques in dimensional modeling.
+```sh
+SELECT p.ProductName, d.Date, SUM(f.SalesAmount) AS TotalSales
+FROM FactSales f
+JOIN DimProduct p ON f.ProductID = p.ProductID
+JOIN DimDate d ON f.DateID = d.DateID
+GROUP BY p.ProductName, d.Date;
 ```
