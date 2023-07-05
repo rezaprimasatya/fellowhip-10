@@ -486,3 +486,140 @@ SELECT *
 FROM Customers
 WHERE CustomerCode = 'CUST001';
 ```
+
+### Architectural design:
+Architectural design for a data warehouse involves considering factors such as data modeling, schema design, partitioning, and clustering.
+
+- Data Modeling:
+  - Details: Data modeling involves defining the structure and relationships of tables in the data warehouse, choosing appropriate data types, and establishing keys and constraints.
+  - Use Case: Data modeling ensures data integrity, enables efficient data retrieval, and facilitates the analysis of complex business scenarios.
+
+                  +------------------+
+                  |   Fact Table     |
+                  +-------+----------+
+                          |
+                          |
+           +--------------+-------------+
+           |            Dimension       |
+           |                            |
+           |  +------+     +----------+ |
+           |  | Dim1 |     | Dim2     | |
+           |  +------+     +----------+ |
+           |                            |
+           +----------------------------+
+
+```sh
+CREATE TABLE FactTable (
+  FactID INT PRIMARY KEY,
+  Dim1ID INT,
+  Dim2ID INT,
+  Value INT,
+  FOREIGN KEY (Dim1ID) REFERENCES Dim1(Dim1ID),
+  FOREIGN KEY (Dim2ID) REFERENCES Dim2(Dim2ID)
+);
+```
+```sh
+CREATE TABLE Dim1 (
+  Dim1ID INT PRIMARY KEY,
+  Dim1Name VARCHAR(50)
+);
+```
+```sh
+CREATE TABLE Dim2 (
+  Dim2ID INT PRIMARY KEY,
+  Dim2Name VARCHAR(50)
+);
+```
+
+- Schema Design:
+  - Details: Schema design determines how data is organized in the data warehouse, such as a star schema, snowflake schema, or a hybrid approach.
+  - Use Case: Schema design impacts query performance, data integration, and ease of use for analysis and reporting.
+
+                   +------------+
+                   | Fact Table |
+                   +-----+------+
+                         |
+                         |
+          +--------------+--------------+
+          |           Dimension          |
+          |                              |
+    +-----+-------+            +---------+------+
+    | Dim1 Table  |            | Dim2 Table    |
+    +-------------+            +--------------+
+          |                            |
+          |                            |
+    +-----+-------+            +---------+------+
+    | Dim1 Subdim |            | Dim2 Subdim   |
+    +-------------+            +--------------+
+```sh
+CREATE TABLE FactTable (
+  FactID INT PRIMARY KEY,
+  Dim1ID INT,
+  Dim2ID INT,
+  Value INT,
+  FOREIGN KEY (Dim1ID) REFERENCES Dim1(Dim1ID),
+  FOREIGN KEY (Dim2ID) REFERENCES Dim2(Dim2ID)
+);
+```
+```sh
+CREATE TABLE Dim1 (
+  Dim1ID INT PRIMARY KEY,
+  Dim1Name VARCHAR(50)
+);
+```
+```sh
+CREATE TABLE Dim1Subdim (
+  Dim1SubdimID INT PRIMARY KEY,
+  Dim1ID INT,
+  Dim1SubdimName VARCHAR(50),
+  FOREIGN KEY (Dim1ID) REFERENCES Dim1(Dim1ID)
+);
+```
+```sh
+CREATE TABLE Dim2 (
+  Dim2ID INT PRIMARY KEY,
+  Dim2Name VARCHAR(50)
+);
+```
+```sh
+CREATE TABLE Dim2Subdim (
+  Dim2SubdimID INT PRIMARY KEY,
+  Dim2ID INT,
+  Dim2SubdimName VARCHAR(50),
+  FOREIGN KEY (Dim2ID) REFERENCES Dim2(Dim2ID)
+);
+```
+
+- Partitioning:
+  - Details: Partitioning involves dividing large tables into smaller, manageable partitions based on specific criteria, improving query performance.
+  - Use Case: Partitioning enables faster data retrieval by eliminating the need to scan the entire table and provides better manageability for large datasets.
+
+```sh
+CREATE TABLE Sales (
+  SaleID INT,
+  SaleDate DATE,
+  ProductID INT,
+  Quantity INT,
+  ...
+)
+PARTITION BY RANGE (SaleDate) (
+  PARTITION p2022 VALUES LESS THAN ('2023-01-01'),
+  PARTITION p2023 VALUES LESS THAN ('2024-01-01'),
+  PARTITION p2024 VALUES LESS THAN ('2025-01-01'),
+  ...
+);
+```
+
+- Clustering:
+  - Details: Clustering arranges data physically in storage based on column values, reducing the amount of data scanned during query execution.
+  - Use Case: Clustering improves query performance by grouping related data together, minimizing disk I/O and improving data locality.
+
+```sh
+CREATE TABLE Customers (
+  CustomerID INT,
+  CustomerName VARCHAR(50),
+  Country VARCHAR(50),
+  ...
+)
+CLUSTER BY CustomerID;
+```
