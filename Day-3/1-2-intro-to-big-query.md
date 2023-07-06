@@ -33,3 +33,4 @@ Techniques:
 - Clustering: Organizing data physically in storage based on column values can improve query performance by reducing data movement.
 
 BigQuery offers a robust and scalable solution for storing, analyzing, and gaining insights from large datasets, making it a valuable tool for various industries and use cases.
+
