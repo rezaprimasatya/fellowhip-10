@@ -1,0 +1,49 @@
+
+
+============================== 2023-05-07 13:40:10.369029 | ea0db772-65b9-4c61-a2da-ff84146769d0 ==============================
+[0m13:40:10.369029 [info ] [MainThread]: Running with dbt=1.4.0
+[0m13:40:10.370352 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': '/home/src/dbt-mage/dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'project_name': 'demo', 'skip_profile_setup': False, 'which': 'init', 'indirect_selection': 'eager'}
+[0m13:40:10.371103 [debug] [MainThread]: Tracking: tracking
+[0m13:40:10.373839 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb07b7e80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb2bd0be0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb2bd0700>]}
+[0m13:40:10.378388 [debug] [MainThread]: Starter project path: /usr/local/lib/python3.10/site-packages/dbt/include/starter_project
+[0m13:40:11.957824 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb2bd3670>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb2bd2920>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb2bd2170>]}
+[0m13:40:11.963089 [debug] [MainThread]: Flushing usage events
+[0m13:40:12.315270 [error] [MainThread]: Encountered an error:
+
+[0m13:40:12.325718 [error] [MainThread]: Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/dbt/main.py", line 135, in main
+    results, succeeded = handle_and_check(args)
+  File "/usr/local/lib/python3.10/site-packages/dbt/main.py", line 198, in handle_and_check
+    task, res = run_from_args(parsed)
+  File "/usr/local/lib/python3.10/site-packages/dbt/main.py", line 245, in run_from_args
+    results = task.run()
+  File "/usr/local/lib/python3.10/site-packages/dbt/task/init.py", line 304, in run
+    adapter = self.ask_for_adapter_choice()
+  File "/usr/local/lib/python3.10/site-packages/dbt/task/init.py", line 230, in ask_for_adapter_choice
+    numeric_choice = click.prompt(prompt_msg, type=click.INT)
+  File "/usr/local/lib/python3.10/site-packages/click/termui.py", line 166, in prompt
+    value = prompt_func(prompt)
+  File "/usr/local/lib/python3.10/site-packages/click/termui.py", line 149, in prompt_func
+    raise Abort() from None
+click.exceptions.Abort
+
+
+
+============================== 2023-05-07 13:40:34.119267 | ff3f1a19-ac09-47cc-813d-419160c378ec ==============================
+[0m13:40:34.119267 [info ] [MainThread]: Running with dbt=1.4.0
+[0m13:40:34.121070 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': '/home/src/dbt-mage/dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'project_name': 'demo', 'skip_profile_setup': True, 'which': 'init', 'indirect_selection': 'eager'}
+[0m13:40:34.122075 [debug] [MainThread]: Tracking: tracking
+[0m13:40:34.124490 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9810d1b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9810cb80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9810d120>]}
+[0m13:40:34.127280 [info ] [MainThread]: A project called demo already exists here.
+[0m13:40:34.128794 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9810e140>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9810f6a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9810ca30>]}
+[0m13:40:34.130851 [debug] [MainThread]: Flushing usage events
+
+
+============================== 2023-05-07 13:40:54.863824 | 391f445b-7291-4729-ab0c-5c6ae10bfd89 ==============================
+[0m13:40:54.863824 [info ] [MainThread]: Running with dbt=1.4.0
+[0m13:40:54.866113 [debug] [MainThread]: running dbt with arguments {'write_json': True, 'use_colors': True, 'printer_width': 80, 'version_check': True, 'partial_parse': True, 'static_parser': True, 'profiles_dir': '/home/src/dbt-mage/dbt', 'send_anonymous_usage_stats': True, 'quiet': False, 'no_print': False, 'cache_selected_only': False, 'project_name': 'demo', 'skip_profile_setup': True, 'which': 'init', 'indirect_selection': 'eager'}
+[0m13:40:54.868162 [debug] [MainThread]: Tracking: tracking
+[0m13:40:54.871067 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa08a11b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa08a0b80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa08a1120>]}
+[0m13:40:54.874732 [debug] [MainThread]: Starter project path: /usr/local/lib/python3.10/site-packages/dbt/include/starter_project
+[0m13:40:54.951830 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa08a0b80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa08a36a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa08a3d90>]}
+[0m13:40:54.952723 [debug] [MainThread]: Flushing usage events

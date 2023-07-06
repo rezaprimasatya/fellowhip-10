@@ -1,0 +1,22 @@
+version: 2
+
+models:
+    - name: join_tables
+      description: Get the difference in search interest between the 'AI' keyword and the 'ChatGPT' keyword in the US
+      columns:
+        - name: us_ai
+          description: Relative search interest the 'AI' keyword in the US 
+          tests: 
+            - not_null
+        - name: us_chatgpt
+          description: Relative search interest the 'ChatGPT' keyword in the US 
+          tests: 
+            - not_null
+        - name: india_ai
+          description: Relative search interest the 'AI' keyword in India 
+          tests: 
+            - not_null
+        - name: india_chatgpt
+          description: Relative search interest the 'ChatGPT' keyword in India
+          tests: 
+            - not_null

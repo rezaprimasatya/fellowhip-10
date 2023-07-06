@@ -1,0 +1,6 @@
+sources:
+- name: mage_demo
+  tables:
+  - name: dbt_pipeline_load_us
+  - name: dbt_pipeline_load_india
+version: 2

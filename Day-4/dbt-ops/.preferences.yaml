@@ -1,0 +1,10 @@
+sync_config:
+  access_token_secret_name: mage_git_access_token
+  auth_type: https
+  branch: null
+  email: khuyentran1476@gmail.com
+  remote_repo_link: https://github.com/khuyentran1401/dbt-mage
+  repo_path: /home/src
+  sync_on_pipeline_run: false
+  type: null
+  username: khuyentran1401

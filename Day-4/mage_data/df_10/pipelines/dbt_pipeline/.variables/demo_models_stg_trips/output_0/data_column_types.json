@@ -1,0 +1,1 @@
+{"trip_id": "Int64", "subscriber_type": "str", "bikeid": "str", "start_time": "datetime64[ns, UTC]", "start_station_id": "Int64", "start_station_name": "str", "end_station_id": "str", "end_station_name": "str", "duration_minutes": "Int64"}

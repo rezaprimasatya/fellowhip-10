@@ -1,0 +1,4 @@
+--Docs: https://docs.mage.ai/dbt/sources
+SELECT *
+FROM `bigquery-public-data.austin_bikeshare.bikeshare_trips`
+WHERE start_station_id is NOT NULL

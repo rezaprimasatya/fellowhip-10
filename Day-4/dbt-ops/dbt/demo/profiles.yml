@@ -1,0 +1,14 @@
+demo:
+  outputs:
+    dev:
+      dataset: google_trends
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      keyfile: /home/src/.dbt/dbt-demo-384419-9a348beed3a7.json
+      location: US
+      method: service-account
+      priority: interactive
+      project: dbt-demo-384419
+      threads: 4
+      type: bigquery
+  target: dev
