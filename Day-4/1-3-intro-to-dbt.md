@@ -4,10 +4,10 @@
 
 DBT is a framework used for high-level SQL transformation logic. Data engineers use dbt to transform and model data in a data warehouse. It is an essential tool used in data modeling to build the data model into smaller modules. With dbt, you can modularize data transformation logic into discrete dbt models. It enables you to reuse the dbt models for different use cases to enhance productivity and collaboration. dbt data modeling is also beneficial for testing and debugging data models.
 
-[DBT](https://www.getdbt.com/)
-[Install DBT Core in local](https://docs.getdbt.com/docs/core/installation)
-[BigQuery configurations](https://docs.getdbt.com/reference/resource-configs/bigquery-configs)
-[DBT Cloud & BigQuery](https://docs.getdbt.com/quickstarts/bigquery?step=15)
+- [DBT](https://www.getdbt.com/)
+- [Install DBT Core in local](https://docs.getdbt.com/docs/core/installation)
+- [BigQuery configurations](https://docs.getdbt.com/reference/resource-configs/bigquery-configs)
+- [DBT Cloud & BigQuery](https://docs.getdbt.com/quickstarts/bigquery?step=15)
 
 ### Implementing Data Modeling with dbt
 Data modeling with dbt is a way of transforming data for business intelligence or downstream applications in a modular approach. The transformation logic is built through dbt models consisting of SQL SELECT statements. 
